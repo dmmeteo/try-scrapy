@@ -2,7 +2,7 @@ import scrapy
 
 
 class BiglSpider(scrapy.Spider):
-    __name__ = "bigl"
+    name = "bigl"
 
     start_urls = ["https://bigl.ua/Noutbuki"]
 
@@ -21,6 +21,6 @@ class BiglSpider(scrapy.Spider):
             return response.css(query).extract_first().strip()
 
         yield {
-            'url': response.url.split('?')[0],
-            "title": extract_with_css('h1.ui-text::text'),
+            "url": response.url.split("?")[0],
+            "title": extract_with_css("h1.ui-text::text"),
         }
