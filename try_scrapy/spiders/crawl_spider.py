@@ -6,23 +6,26 @@ from scrapy.spiders import CrawlSpider, Rule
 
 class CrawlSpiderSpider(CrawlSpider):
     name = "crawl_spider"
-    allowed_domains = ["quotes.toscrape.com"]
-    start_urls = ["http://quotes.toscrape.com/"]
+    allowed_domains = ["bigl.ua"]
+    start_urls = ["https://bigl.ua/all_categories"]
 
     rules = (
-        # Extract links matching 'category.php' (but not matching 'subsection.php')
+        # Extract links matching 'Noutbuki' and 'Monitory' (but not matching 'Kompyutery')
         # and follow links from them (since no callback means follow=True by default).
-        Rule(LinkExtractor(allow=("category\.php",), deny=("subsection\.php",))),
-        # Extract links matching 'item.php' and parse them with the spider's method parse_item
-        Rule(LinkExtractor(allow=("item\.php",)), callback="parse_item"),
+        Rule(LinkExtractor(allow=("Noutbuki", "Monitory"), deny=("Kompyutery",))),
+        # Extract links matching 'monitor' and 'lenovo' and parse them with the spider's method parse_item
+        Rule(LinkExtractor(allow=("Monitory",)), callback="parse_item"),
     )
 
     def parse_item(self, response):
+        # TODO normal parser
         self.logger.info("Hi, this is an item page! %s", response.url)
         item = scrapy.Item()
-        item["id"] = response.xpath('//td[@id="item_id"]/text()').re(r"ID: (\d+)")
-        item["name"] = response.xpath('//td[@id="item_name"]/text()').extract()
-        item["description"] = response.xpath(
-            '//td[@id="item_description"]/text()'
-        ).extract()
+        item["url"] = response.url
+        item["title"] = response.xpath(
+            '//h1[@data-qaid="title-h1"]/text()'
+        ).extract_first().strip()
+        item["price"] = response.xpath(
+            '//span[@data-qaid="product-price"]/text()'
+        ).extract_first().strip()
         return item
