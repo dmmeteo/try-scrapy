@@ -12,9 +12,9 @@ class CrawlSpiderSpider(CrawlSpider):
     rules = (
         # Extract links matching 'Noutbuki' and 'Monitory' (but not matching 'Kompyutery')
         # and follow links from them (since no callback means follow=True by default).
-        Rule(LinkExtractor(allow=("Noutbuki", "Monitory"), deny=("Kompyutery",))),
+        Rule(LinkExtractor(allow=("Monitory",), deny=("Kompyutery",))),
         # Extract links matching 'monitor' and 'lenovo' and parse them with the spider's method parse_item
-        Rule(LinkExtractor(allow=("Monitory",)), callback="parse_item"),
+        Rule(LinkExtractor(allow=("Noutbuki",)), callback="parse_item"),
     )
 
     def parse_item(self, response):
