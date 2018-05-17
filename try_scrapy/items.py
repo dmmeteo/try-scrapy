@@ -10,5 +10,7 @@ import scrapy
 
 class TryScrapyItem(scrapy.Item):
     # define the fields for your item here like:
+    link = scrapy.Field()
     name = scrapy.Field()
+    description = scrapy.Field()
     pass

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Command: scrapy genspider -t crawl crawl_spider bigl.ua
+# Create spider with crawl template
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
