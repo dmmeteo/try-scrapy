@@ -8,6 +8,8 @@ class SitemapSpiderSpider(SitemapSpider):
     # sitemap_urls = ['http://smscoin.com/sitemap.txt']
     sitemap_rules = [
         ('/shop/', 'parse_shop'),
+        ('/product/', 'parse_product'),
+        ('/category/', 'parse_category'),
     ]
 
     other_urls = ['http://smscoin.com/about']
@@ -22,3 +24,9 @@ class SitemapSpiderSpider(SitemapSpider):
 
     def parse_other(self, response):
         pass # ... scrape other here ...
+
+    def parse_product(self, response):
+        pass # ... scrape product ...
+
+    def parse_category(self, response):
+        pass # ... scrape category ...
