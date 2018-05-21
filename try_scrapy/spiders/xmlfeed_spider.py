@@ -13,11 +13,12 @@ class XmlfeedSpiderSpider(XMLFeedSpider):
     itertag = "item"  # change it accordingly
 
     def parse_node(self, response, node):
-        self.logger.info('Hi, this is a <%s> node!: %s', self.itertag, ''.join(node.extract()))
+        self.logger.info(
+            "Hi, this is a <%s> node!: %s", self.itertag, "".join(node.extract())
+        )
 
         item = TryScrapyItem()
-        item['link'] = node.xpath('link').extract()
-        item['name'] = node.xpath('title').extract_first()
-        item['description'] = node.xpath('description').extract()
+        item["link"] = node.xpath("link").extract()
+        item["name"] = node.xpath("title").extract_first()
+        item["description"] = node.xpath("description").extract()
         return item
-
